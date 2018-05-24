@@ -1,0 +1,28 @@
+{% if field.control == 'select' %}
+    <br/>
+    <label>{{ field.label }}:</label>
+    <select name="{{ field.options[0].name }}" class="bs-select form-control dropup form-filter"
+            {% if disabled is defined and disabled == true %} disabled="disabled" readonly="readonly" {% endif %}
+            data-ajax-call="{{ path('grid_field_post_update', {'field': field.id, 'lang': langCode}) }}">
+        {% for option in field.options %}
+            <option {% if field.value == option.value %}selected{% endif %}
+                    value="{{ option.value }}">{{ option.label }}</option>
+        {% endfor %}
+    </select>
+{% else %}
+    <br/>
+    <label>{{ field.label }}:</label>
+    <div class="mt-radio-inline">
+        {% for option in field.options %}
+            <label class="mt-radio">
+                {{ option.label }}
+                <input {% if disabled is defined and disabled == true %} disabled="disabled" readonly="readonly" {% endif %}
+                        type="radio" id="option{{ field.id }}{{ option.name }}"
+                        data-ajax-call="{{ path('grid_field_post_update', {'field': field.id, 'lang': langCode}) }}"
+                        name="{{ option.name }}{{ field.id }}"
+                        value="{{ option.value }}" {% if field.value == option.value %}checked{% endif %}>
+                <span></span>
+            </label>
+        {% endfor %}
+    </div>
+{% endif %}

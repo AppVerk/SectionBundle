@@ -1,0 +1,262 @@
+appverk_sections:
+    options:
+        translatable: true
+
+    sections:
+        actions:
+            create:
+            edit:
+            remove:
+        views:
+            create:
+            edit:
+            remove:
+
+    fields:
+        picture:
+            factory: GridBundle\Factory\FieldPhotoFactory
+            admin_template: ''
+            views:
+                create:
+                edit:
+                remove:
+        html:
+            factory: GridBundle\Factory\FieldHTMLFactory
+            admin_template: ''
+        txt:
+            factory: GridBundle\Factory\FieldTXTFactory
+            admin_template: ''
+        checkbox:
+            factory: GridBundle\Factory\FieldCheckboxFactory
+            admin_template: '@Grid/fields/checkbox.html.twig'
+        choice:
+            factory: GridBundle\Factory\FieldChoiceFactory
+            admin_template: '@Grid/fields/choice.html.twig'
+        input:
+            factory: GridBundle\Factory\FieldInputFactory
+            admin_template: ''
+
+    section_templates:
+        two_columns:
+            name: 'two-columns'
+            admin_template: '@Grid/sections/default.html.twig'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/two-columns.jpg'
+            fields:
+                - { type: input, text: 'title', title: 'title', name: 'title' }
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: html, title: 'html', name: 'html' }
+                - { type: choice, control: 'radio', label: 'Picture position', name: 'picture_position', settings: true, options: [ { label: 'left', name: 'picture_position', value: 'picture_left' }, {label: 'right', name: 'picture_position', value: 'picture_right'} ] }
+        home_slider:
+            name: 'home-slider'
+            admin_template: '@Grid/sections/home_slider.html.twig'
+            model: GridBundle\Entity\SectionHomeSlider
+            block: 'GridBundle:SectionHomeSliderBlock:getView'
+            preview: 'bundles/grid/img/sections/home-slider.jpg'
+
+        home_info_book_event:
+            name: 'home-info'
+            admin_template: '@Grid/sections/default.html.twig'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/home-info.jpg'
+            fields:
+                - { type: input, text: 'Before product title', title: 'Before product title', name: 'product_before_title' }
+                - { type: input, text: 'Product main title', title: 'Product main title', name: 'product_title' }
+                - { type: input, text: 'Product sub title', title: 'Product sub title', name: 'product_sub_title' }
+                - { type: txt, title: 'Product description', name: 'product_description' }
+                - { type: picture, title: 'Product picture', name: 'product_picture' }
+                - { type: input, text: 'Product link label', title: 'Product link label', name: 'product_button_label' }
+                - { type: input, text: 'Product link url', title: 'Product link  url', name: 'product_button_url' }
+
+                - { type: input, text: 'Before event title', title: 'Before event title', name: 'event_before_title' }
+                - { type: input, text: 'Events main title', title: 'Events main title', name: 'events_title' }
+                - { type: input, text: 'Event sub title', title: 'Event sub title', name: 'event_sub_title' }
+                - { type: picture, title: 'Event picture', name: 'event_picture' }
+                - { type: input, text: 'Event link label', title: 'Event link label' , name: 'event_button_label' }
+                - { type: input, text: 'Event link url', title: 'Event link url' , name: 'event_button_url' }
+
+        latest_news:
+            name: 'latest-news'
+            admin_template: '@Grid/sections/latest_news.html.twig'
+            model: GridBundle\Entity\SectionLatestNews
+            preview: 'bundles/grid/img/sections/latest-news.jpg'
+            block: 'GridBundle:SectionLatestNewsBlock:getView'
+
+        sangha_groups_select:
+            name: 'home-get-involved'
+            admin_template: '@Grid/sections/get_involved.html.twig'
+            model: GridBundle\Entity\SectionGetInvolved
+            preview: 'bundles/grid/img/sections/get-involved.jpg'
+            block: 'GridBundle:SectionGetInvolvedBlock:getView'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Sub title', title: 'Sub title', name: 'sub_title' }
+                - { type: input, text: 'Button url', title: 'ButtonUrl', name: 'button_url'}
+                - { type: txt, title: 'Description', name: 'description' }
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: checkbox, settings: true, label: 'Background with brush', name: 'background_with_brush' }
+                - { type: checkbox, settings: true, label: 'Show sangha group button', name: 'sangha_group_button' }
+
+        home_info_book_sahaja_express:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'home-info2'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/home-info-2.jpg'
+            fields:
+                - { type: input, text: 'Before title', title: 'Before title', name: 'before_title' }
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Sub title', title: 'Sub title', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'description' }
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: input, text: 'Link label', title: 'Link label' , name: 'button_label' }
+                - { type: input, text: 'Link url', title: 'Link url' , name: 'button_url' }
+
+        blockquote:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'blockquote'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/quote.jpg'
+            fields:
+                - { type: txt, title: 'Quote text', name: 'book_description' }
+                - { type: choice, control: 'radio', label: 'Background', settings: true, name: 'background', options: [ { label: 'none', name: 'background', value: 'none' }, {label: 'wide brush', name: 'background', value: 'wide_brush'}, {label: 'brush on left', name: 'background', value: 'brush_left'} ] }
+
+        faq_content:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'faq-content'
+            model: GridBundle\Entity\SectionFAQ
+            preview: 'bundles/grid/img/sections/faq-content.jpg'
+            block: 'GridBundle:SectionFAQBlock:getView'
+
+        hub_intro:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'hub-intro'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/hub-intro.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Sub title', title: 'Sub title', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'description' }
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: input, text: 'Link label', title: 'Link label' , name: 'button_label' }
+                - { type: input, text: 'Link url', title: 'Link url' , name: 'button_url' }
+                - { type: choice, control: 'radio', label: 'Picture position', settings: true, name: 'picture_position', options: [ { label: 'left', name: 'picture_position', value: 'left' }, {label: 'right', name: 'picture_position', value: 'right'} ] }
+
+        hub_text:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'hub-text'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/hub-text.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Sub title', title: 'Sub title', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'description' }
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: input, text: 'Link label', title: 'Link label' , name: 'button_label' }
+                - { type: input, text: 'Link url', title: 'Link url' , name: 'button_url' }
+                - { type: choice, control: 'radio', label: 'Picture position', settings: true, name: 'picture_position', options:[ { label: 'left', name: 'picture_position', value: 'left' }, {label: 'right', name: 'picture_position', value: 'right'} ] }
+                - { type: choice, control: 'radio', label: 'Background', settings: true, name: 'background', options:[ { label: 'none', name: 'background', value: 'none' }, {label: 'Brush', name: 'background', value: 'brush'}, {label: 'wide photo', name: 'background', value: 'wide_photo'} ] }
+
+        menu_content:
+            admin_template: '@Grid/sections/navigation.html.twig'
+            name: 'menu-content'
+            model: GridBundle\Entity\SectionNavigation
+            preview: 'bundles/grid/img/sections/menu-content.jpg'
+
+        notes:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'notes'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/notes.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: html, title: 'Description', name: 'html' }
+                - { type: checkbox, label: 'Divider enabled', settings: true, name: 'divider_enabled' }
+
+        one_column:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'one-column'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/one-column.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: html, title: 'Description', name: 'html' }
+
+        master_one:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'master-one'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/master1.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Subtitle', title: 'Subtitle', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'text' }
+                - { type: input, text: 'Author', title: 'Author', name: 'author' }
+                - { type: picture, title: 'picture', name: 'picture' }
+
+        master_two:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'master-two'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/master2.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Subtitle', title: 'Subtitle', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'text' }
+                - { type: input, text: 'Author', title: 'Author', name: 'author' }
+                - { type: picture, title: 'photo', name: 'picture' }
+                - { type: picture, title: 'background picture', name: 'background' }
+
+        master_three:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'master-three'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/master3.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: input, text: 'Subtitle', title: 'Subtitle', name: 'sub_title' }
+                - { type: txt, title: 'Description', name: 'text' }
+                - { type: input, text: 'Author', title: 'Author', name: 'author' }
+                - { type: picture, title: 'background picture', name: 'background' }
+
+        masters:
+            admin_template: '@Grid/sections/masters.html.twig'
+            name: 'masters'
+            model: GridBundle\Entity\SectionMasters
+            block: 'GridBundle:SectionMastersBlock:getView'
+            preview: 'bundles/grid/img/sections/masters.jpg'
+
+        share_buttons:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'share-buttons'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/share-buttons.jpg'
+
+        slider:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'slider'
+            model: GridBundle\Entity\SectionSlider
+            block: 'GridBundle:SectionSliderBlock:getView'
+            preview: 'bundles/grid/img/sections/slider.jpg'
+            fields:
+                - { type: input, text: 'Title', title: 'Title', name: 'title' }
+                - { type: checkbox, label: 'Show background', settings: true, name: 'background' }
+                - { type: checkbox, label: 'Title underlining', settings: true, name: 'underlining' }
+
+        suggested_news:
+            admin_template: '@Grid/sections/suggested-news.html.twig'
+            name: 'suggested-news'
+            model: GridBundle\Entity\SectionSuggestedNews
+            block: 'GridBundle:SectionSuggestedNewsBlock:getView'
+            preview: 'bundles/grid/img/sections/suggested-news.jpg'
+            fields:
+                - { type: checkbox, label: 'Show background', settings: true, name: 'background' }
+
+        wide_image:
+            admin_template: '@Grid/sections/default.html.twig'
+            name: 'wide-image'
+            model: GridBundle\Entity\SectionDefault
+            preview: 'bundles/grid/img/sections/wide-image.jpg'
+            fields:
+                - { type: picture, title: 'picture', name: 'picture' }
+                - { type: checkbox, label: 'Enable brush style', settings: true, name: 'brush_style' }
+

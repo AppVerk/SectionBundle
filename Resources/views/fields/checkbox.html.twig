@@ -1,0 +1,6 @@
+<label class="mt-checkbox"> {{ field.label }}
+    <input {% if disabled is defined and disabled == true %} disabled="disabled" readonly="readonly" {% endif %}
+            type="checkbox" data-ajax-call="{{ path('grid_field_post_update', {'field': field.id, 'lang': langCode}) }}"
+            value="1" name="{{ field.label }}{{ field.id }}" {% if field.checked == true %}checked{% endif %}>
+    <span> </span>
+</label><br/>

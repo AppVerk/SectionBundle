@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    AppVerk\SectionBundle\Doctrine\SectionManager:
+        arguments:
+            $className: AppVerk\SectionBundle\Entity\Section
+
+    AppVerk\SectionBundle\Doctrine\SectionTranslationManager:
+        arguments:
+            $className: AppVerk\SectionBundle\Entity\SectionTranslation
+
+    AppVerk\SectionBundle\Doctrine\FieldManager:
+        arguments:
+            $className: AppVerk\SectionBundle\Entity\Field
