@@ -1,0 +1,28 @@
+{
+  "name": "app-verk/section-bundle",
+  "description": "Appverk section bundle",
+  "autoload": {
+    "psr-4": {
+      "AppVerk\\SectionBundle\\": ""
+    }
+  },
+  "authors": [
+    {
+      "name": "Rafał Narowski",
+      "email": "rafal.narowski@appverk.com"
+    },
+    {
+      "name": "Michał Jędraszczyk",
+      "email": "michal.jedraszczyk@appverk.com"
+    }
+  ],
+  "keywords": [
+    "section bundle"
+  ],
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "php": "^7.0"
+  }
+}
