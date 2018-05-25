@@ -15,7 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/field")
@@ -26,26 +25,33 @@ class FieldController extends BaseController implements LanguageAccessController
      * @Route("/edit/{field}/{lang}", name="section_field_edit")
      * @Method({"GET", "POST"})
      */
-    public function editFieldAjaxAction(Field $field, $lang, FieldFormHandler $fieldFormHandler, Request $request, ConfigProvider $configProvider)
-    {
+    public function editFieldAjaxAction(
+        Field $field,
+        $lang,
+        FieldFormHandler $fieldFormHandler,
+        Request $request,
+        ConfigProvider $configProvider
+    ) {
         $returnParameters = ['lang' => $lang];
 
         if ($request->getMethod() === 'GET') {
             $form = $fieldFormHandler->buildForm(FieldType::class, $field)->getFormView();
             $returnParameters['form'] = $form;
-        } else if ($request->getMethod() === ' POST') {
-            if ($field instanceof TranslationEntityInterface) {
-                $field->setCurrentLocale($lang);
-            }
+        } else {
+            if ($request->getMethod() === ' POST') {
+                if ($field instanceof TranslationEntityInterface) {
+                    $field->setCurrentLocale($lang);
+                }
 
-            $fieldFormHandler->buildForm(FieldType::class, $field);
+                $fieldFormHandler->buildForm(FieldType::class, $field);
 
-            if (!$fieldFormHandler->process()) {
-                $this->addFlashMessage('danger', $fieldFormHandler->getErrorsAsString());
-            } else {
-                $this->addFlashMessage('success', 'field.edit.successful');
+                if (!$fieldFormHandler->process()) {
+                    $this->addFlashMessage('danger', $fieldFormHandler->getErrorsAsString());
+                } else {
+                    $this->addFlashMessage('success', 'field.edit.successful');
+                }
+                $returnParameters['object'] = $field;
             }
-            $returnParameters['object'] = $field;
         }
 
         return $this->render($configProvider->getFieldView('edit', $field->getType()), $returnParameters);

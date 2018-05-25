@@ -57,18 +57,6 @@ class ConfigProvider
         return [];
     }
 
-    public function getSectionModel($templateName): string
-    {
-        $templates = $this->getSettings("section");
-        foreach ($templates as $k => $template) {
-            if ($template['name'] === $templateName) {
-                return $template['model'];
-            }
-        }
-
-        return "";
-    }
-
     public function getFieldAdminTemplate($fieldName)
     {
         $fieldSettings = $this->getSettings('fields.'.$fieldName);
@@ -101,17 +89,27 @@ class ConfigProvider
         return $sectionThemesArray;
     }
 
-    public function getSectionView(string $action) : string
+    public function getSectionView(string $action): string
     {
         $parameter = 'section.actions.'.$action;
 
         return $this->container->getParameter("appverk_sections.$parameter");
     }
 
-    public function getFieldView(string $action, string $fieldType) : string
+    public function getFieldView(string $action, string $fieldType): string
     {
         $parameter = 'fields.'.$fieldType.'.actions.'.$action;
 
         return $this->container->getParameter("appverk_sections.$parameter");
+    }
+
+    public function getNodeSettings(): array
+    {
+        return $this->getSettings('nodes');
+    }
+
+    public function getLanguages()
+    {
+        return $this->container->getParameter("appverk_sections.options.languages");
     }
 }

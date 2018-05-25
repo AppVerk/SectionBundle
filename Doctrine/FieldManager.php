@@ -2,10 +2,10 @@
 
 namespace AppVerk\SectionBundle\Doctrine;
 
-use AppVerk\SectionBundle\Entity\Field;
-use AppVerk\SectionBundle\Entity\Section;
 use AppVerk\Components\Doctrine\AbstractManager;
 use AppVerk\Components\Doctrine\ManagerInterface;
+use AppVerk\SectionBundle\Entity\Field;
+use AppVerk\SectionBundle\Entity\Section;
 
 class FieldManager extends AbstractManager implements ManagerInterface
 {

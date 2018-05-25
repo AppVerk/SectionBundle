@@ -71,7 +71,7 @@ class SectionFieldsBuilder
     ) {
         if (count($languages) > 0) {
             foreach ($languages as $language) {
-                $currentLocale = $language->getCode();
+                $currentLocale = $language['code'];
                 $this->translateForLanguage($field, $sectionTemplateName, $currentLocale, $data);
             }
         } else {

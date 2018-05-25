@@ -50,6 +50,13 @@ abstract class Section implements EntityInterface
     protected $type;
 
     /**
+     * @Gedmo\SortableGroup
+     * @ORM\ManyToOne(targetEntity="Node", inversedBy="sections")
+     * @ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $node;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -154,5 +161,29 @@ abstract class Section implements EntityInterface
     public function isCustom()
     {
         return $this->custom;
+    }
+
+    /**
+     * Set node
+     *
+     * @param Node $node
+     *
+     * @return Section
+     */
+    public function setNode(Node $node = null)
+    {
+        $this->node = $node;
+
+        return $this;
+    }
+
+    /**
+     * Get node
+     *
+     * @return Node
+     */
+    public function getNode()
+    {
+        return $this->node;
     }
 }

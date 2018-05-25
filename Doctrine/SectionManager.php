@@ -2,9 +2,9 @@
 
 namespace AppVerk\SectionBundle\Doctrine;
 
-use AppVerk\SectionBundle\Entity\Section;
 use AppVerk\Components\Doctrine\AbstractManager;
 use AppVerk\Components\Doctrine\ManagerInterface;
+use AppVerk\SectionBundle\Entity\Section;
 
 class SectionManager extends AbstractManager implements ManagerInterface
 {

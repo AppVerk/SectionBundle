@@ -6,7 +6,6 @@ use AppVerk\SectionBundle\Entity\Field;
 use AppVerk\SectionBundle\Entity\FieldCheckbox;
 use AppVerk\SectionBundle\Entity\FieldHTML;
 use AppVerk\SectionBundle\Entity\FieldInput;
-use AppVerk\SectionBundle\Entity\FieldPhoto;
 use AppVerk\SectionBundle\Entity\FieldTXT;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -26,7 +25,7 @@ class FieldType extends AbstractType
                 'body',
                 TextareaType::class,
                 [
-                    'label'      => false,
+                    'label' => false,
                 ]
             );
         }
