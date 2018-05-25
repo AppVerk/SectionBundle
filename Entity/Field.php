@@ -2,7 +2,7 @@
 
 namespace AppVerk\SectionBundle\Entity;
 
-use Appverk\Components\Doctrine\EntityInterface;
+use AppVerk\Components\Doctrine\EntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 

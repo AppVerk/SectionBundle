@@ -63,19 +63,6 @@ class FieldType extends AbstractType
                 ]
             );
         }
-
-//        if ($object instanceof FieldPhoto) {
-//            $builder->add(
-//                'photo',
-//                MediaChoiceType::class,
-//                [
-//                    'property_path' => "photo",
-//                    'category'      => 'field',
-//                    'data'          => $object->translate($object->getCurrentLocale())->getPhoto(),
-//                    'data_class'    => null,
-//                ]
-//            );
-//        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -83,7 +70,7 @@ class FieldType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class'         => Field::class,
-                'translation_domain' => 'form_field_type',
+                'translation_domain' => 'messages',
                 'csrf_protection'    => false,
             ]
         );

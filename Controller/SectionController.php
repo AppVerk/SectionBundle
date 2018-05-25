@@ -8,7 +8,6 @@ use AppVerk\SectionBundle\Entity\Section;
 use AppVerk\SectionBundle\Entity\SectionDefault;
 use AppVerk\SectionBundle\Form\Handler\SectionFormHandler;
 use AppVerk\SectionBundle\Form\Type\SectionType;
-use AppVerk\SectionBundle\Util\ConfigProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,8 +24,7 @@ class SectionController extends BaseController implements LanguageAccessControll
     public function createSectionAction(
         $lang,
         SectionFormHandler $sectionFormHandler,
-        Request $request,
-        ConfigProvider $configProvider
+        Request $request
     ) {
         $returnParameters = ['lang' => $lang];
 
@@ -36,7 +34,7 @@ class SectionController extends BaseController implements LanguageAccessControll
         } else {
             if ($request->getMethod() === 'POST') {
                 $sectionTemplate = $request->request->get('section')['template'];
-                $dataClass = $configProvider->getTemplateSettings($sectionTemplate)['model'];
+                $dataClass = $this->configProvider->getTemplateSettings($sectionTemplate)['model'];
 
                 $section = new $dataClass();
                 $section->setCurrentLocale($lang);
@@ -52,7 +50,7 @@ class SectionController extends BaseController implements LanguageAccessControll
             }
         }
 
-        return $this->render($configProvider->getSectionView('create'), $returnParameters);
+        return $this->render($this->configProvider->getSectionView('create'), $returnParameters);
     }
 
     /**
@@ -63,8 +61,7 @@ class SectionController extends BaseController implements LanguageAccessControll
         Section $section,
         $lang,
         SectionFormHandler $sectionFormHandler,
-        Request $request,
-        ConfigProvider $configProvider
+        Request $request
     ) {
         $returnParameters = ['lang' => $lang];
         if ($request->getMethod() === 'GET') {
@@ -85,7 +82,7 @@ class SectionController extends BaseController implements LanguageAccessControll
             }
         }
 
-        return $this->render($configProvider->getSectionView('edit'), $returnParameters);
+        return $this->render($this->configProvider->getSectionView('edit'), $returnParameters);
     }
 
     /**
@@ -95,8 +92,7 @@ class SectionController extends BaseController implements LanguageAccessControll
     public function deleteAction(
         Section $section,
         $lang = null,
-        SectionManager $sectionManager,
-        ConfigProvider $configProvider
+        SectionManager $sectionManager
     ) {
         if (!$lang && $this->getUser()->isSuperAdmin()) {
             $sectionManager->remove($section);
@@ -106,6 +102,6 @@ class SectionController extends BaseController implements LanguageAccessControll
             $sectionManager->removeTranslation($section, $lang);
         }
 
-        return $this->render($configProvider->getSectionView('remove'), ['lang' => $lang]);
+        return $this->render($this->configProvider->getSectionView('remove'), ['lang' => $lang]);
     }
 }

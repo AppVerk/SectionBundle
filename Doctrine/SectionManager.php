@@ -38,9 +38,4 @@ class SectionManager extends AbstractManager implements ManagerInterface
             }
         }
     }
-
-    public function getAllSections($withNode = true)
-    {
-        return $this->getRepository()->getAllSections($withNode);
-    }
 }

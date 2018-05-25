@@ -6,14 +6,10 @@ use AppVerk\Components\Controller\LanguageAccessControllerInterface;
 use AppVerk\Components\Doctrine\TranslationEntityInterface;
 use AppVerk\SectionBundle\Doctrine\FieldManager;
 use AppVerk\SectionBundle\Entity\Field;
-use AppVerk\SectionBundle\Entity\FieldCheckbox;
-use AppVerk\SectionBundle\Entity\FieldChoice;
 use AppVerk\SectionBundle\Form\Handler\FieldFormHandler;
 use AppVerk\SectionBundle\Form\Type\FieldType;
-use AppVerk\SectionBundle\Util\ConfigProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -29,8 +25,7 @@ class FieldController extends BaseController implements LanguageAccessController
         Field $field,
         $lang,
         FieldFormHandler $fieldFormHandler,
-        Request $request,
-        ConfigProvider $configProvider
+        Request $request
     ) {
         $returnParameters = ['lang' => $lang];
 
@@ -54,42 +49,17 @@ class FieldController extends BaseController implements LanguageAccessController
             }
         }
 
-        return $this->render($configProvider->getFieldView('edit', $field->getType()), $returnParameters);
+        return $this->render($this->configProvider->getFieldView('edit', $field->getType()), $returnParameters);
     }
 
     /**
-     * @Route("/update/{field}/{lang}", name="section_field_post_update")
-     * @Method("POST")
-     */
-    public function postUpdateSettingField(Field $field, $lang, FieldManager $fieldManager, Request $request)
-    {
-        if ($field instanceof TranslationEntityInterface) {
-            $field->setCurrentLocale($lang);
-        }
-
-        if ($field instanceof FieldCheckbox) {
-            $field->setChecked(($request->get('value') === 'true') ? true : false);
-        }
-        if ($field instanceof FieldChoice) {
-            $field->setValue($request->get('value'));
-        }
-
-        $fieldManager->persist($field);
-        $fieldManager->flush();
-
-        return new JsonResponse();
-
-    }
-
-    /**
-     * @Route("/delete/{field}/{lang}", name="grid_field_delete")
+     * @Route("/delete/{field}/{lang}", name="section_field_delete")
      * @Method("GET")
      */
     public function deleteAction(
         Field $field,
         $lang = null,
-        FieldManager $fieldManager,
-        ConfigProvider $configProvider
+        FieldManager $fieldManager
     ) {
         if (!$lang && $this->getUser()->isSuperAdmin()) {
             $fieldManager->remove($field);
@@ -99,6 +69,6 @@ class FieldController extends BaseController implements LanguageAccessController
             $fieldManager->removeTranslation($field, $lang);
         }
 
-        return $this->render($configProvider->getSectionView('remove'), ['lang' => $lang]);
+        return $this->render($this->configProvider->getSectionView('remove'), ['lang' => $lang]);
     }
 }

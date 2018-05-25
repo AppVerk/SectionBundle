@@ -102,14 +102,4 @@ class ConfigProvider
 
         return $this->container->getParameter("appverk_sections.$parameter");
     }
-
-    public function getNodeSettings(): array
-    {
-        return $this->getSettings('nodes');
-    }
-
-    public function getLanguages()
-    {
-        return $this->container->getParameter("appverk_sections.options.languages");
-    }
 }

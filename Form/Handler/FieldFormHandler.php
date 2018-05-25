@@ -32,12 +32,6 @@ class FieldFormHandler extends AbstractFormHandler
         } else {
             if ($field instanceof FieldInput) {
                 $field->translate($field->getCurrentLocale(), false)->setText($requestData['field']['text']);
-            } else {
-                if ($field instanceof FieldPhoto) {
-                    $field->translate($field->getCurrentLocale(), false)->setPhoto(
-                        $this->form->get('photo')->getData()
-                    );
-                }
             }
         }
 
