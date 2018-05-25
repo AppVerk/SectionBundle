@@ -37,17 +37,12 @@ abstract class Section implements EntityInterface
     /**
      * @ORM\Column(type="string")
      */
-    private $template;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $custom;
+    protected $type;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $type;
+    protected $name;
 
     /**
      * @return mixed
@@ -119,40 +114,16 @@ abstract class Section implements EntityInterface
     /**
      * @return mixed
      */
-    public function getTemplate()
+    public function getName()
     {
-        return $this->template;
+        return $this->name;
     }
 
     /**
-     * @param mixed $template
+     * @param mixed $name
      */
-    public function setTemplate($template)
+    public function setName($name)
     {
-        $this->template = $template;
-    }
-
-    /**
-     * Set custom
-     *
-     * @param boolean $custom
-     *
-     * @return Section
-     */
-    public function setCustom($custom)
-    {
-        $this->custom = $custom;
-
-        return $this;
-    }
-
-    /**
-     * Is custom
-     *
-     * @return boolean
-     */
-    public function isCustom()
-    {
-        return $this->custom;
+        $this->name = $name;
     }
 }

@@ -19,7 +19,11 @@ class SectionExtension extends Extension
 
         $container->setParameter('appverk_sections.options.translatable', $config['options']['translatable']);
         $container->setParameter('appverk_sections.sections', $config['sections']);
-        $container->setParameter('appverk_sections.fields', $config['fields']);
+        $container->setParameter('appverk_sections.options.languages', $config['options']['languages']);
+
+        foreach ($config['fields'] as $field => $parameters) {
+            $container->setParameter("appverk_sections.fields.$field", $parameters);
+        }
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

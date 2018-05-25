@@ -33,62 +33,6 @@ class ConfigProvider
         return $this->container->getParameter("appverk_sections.fields.$type");
     }
 
-    public function getTemplates(): array
-    {
-        $templateChoices = [];
-        $templates = $this->getSettings('section');
-
-        foreach ($templates as $key => $template) {
-            $templateChoices[$template['name']] = $template['name'];
-        }
-
-        return $templateChoices;
-    }
-
-    public function getTemplateSettings($templateName): array
-    {
-        $templates = $this->getSettings("section");
-        foreach ($templates as $k => $template) {
-            if ($template['name'] === $templateName) {
-                return $template;
-            }
-        }
-
-        return [];
-    }
-
-    public function getFieldAdminTemplate($fieldName)
-    {
-        $fieldSettings = $this->getSettings('fields.'.$fieldName);
-
-        return $fieldSettings['admin_template'];
-    }
-
-    public function getSectionAdminTemplate($templateName)
-    {
-        $templates = $this->getTemplateSettings($templateName);
-
-        return $templates['admin_template'];
-    }
-
-    public function getSectionBlock($templateName)
-    {
-        $templates = $this->getTemplateSettings($templateName);
-
-        return $templates['block'];
-    }
-
-    public function getSectionThemes(): array
-    {
-        $sectionThemesArray = [];
-        $sectionThemes = $this->getSettings('section_themes');
-        foreach ($sectionThemes as $sectionTheme) {
-            $sectionThemesArray[$sectionTheme['label']] = $sectionTheme['value'];
-        }
-
-        return $sectionThemesArray;
-    }
-
     public function getSectionView(string $action): string
     {
         $parameter = 'section.actions.'.$action;
@@ -101,5 +45,32 @@ class ConfigProvider
         $parameter = 'fields.'.$fieldType.'.actions.'.$action;
 
         return $this->container->getParameter("appverk_sections.$parameter");
+    }
+
+    public function getSectionSettings()
+    {
+        return $this->getSettings('sections');
+    }
+
+    public function isTranslatableEnabled(): bool
+    {
+        return $this->container->getParameter("appverk_sections.options.translatable");
+    }
+
+    public function getLanguages()
+    {
+        return $this->container->getParameter("appverk_sections.options.languages");
+    }
+
+    public function getSectionFields($sectionName)
+    {
+        $sections = $this->getSectionSettings();
+        foreach ($sections as $key => $data) {
+            if ($key === $sectionName) {
+                return $data['fields'];
+            }
+        }
+
+        return [];
     }
 }

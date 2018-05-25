@@ -13,4 +13,7 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    AppVerk\SectionBundle\Twig\TemplateExtension:
+    AppVerk\SectionBundle\Service\SectionBuilder:
+        public: true
+        arguments:
+            $locale: '%locale%'

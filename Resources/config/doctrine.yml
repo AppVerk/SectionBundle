@@ -8,10 +8,6 @@ services:
         arguments:
             $className: AppVerk\SectionBundle\Entity\Section
 
-    AppVerk\SectionBundle\Doctrine\SectionTranslationManager:
-        arguments:
-            $className: AppVerk\SectionBundle\Entity\SectionTranslation
-
     AppVerk\SectionBundle\Doctrine\FieldManager:
         arguments:
             $className: AppVerk\SectionBundle\Entity\Field

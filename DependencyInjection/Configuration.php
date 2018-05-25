@@ -29,6 +29,15 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('options')
             ->children()
             ->booleanNode('translatable')->defaultFalse()->end()
+            ->arrayNode('languages')
+            ->arrayPrototype()
+            ->children()
+            ->scalarNode('code')->isRequired()->end()
+            ->scalarNode('name')->end()
+            ->scalarNode('default')->defaultFalse()->end()
+            ->end()
+            ->end()
+            ->end()
             ->end()
             ->end();
     }

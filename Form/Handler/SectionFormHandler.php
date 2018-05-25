@@ -5,17 +5,17 @@ namespace AppVerk\SectionBundle\Form\Handler;
 use AppVerk\Components\Form\Handler\AbstractFormHandler;
 use AppVerk\SectionBundle\Doctrine\SectionManager;
 use AppVerk\SectionBundle\Entity\Section;
-use AppVerk\SectionBundle\Service\SectionFieldsBuilder;
+use AppVerk\SectionBundle\Service\SectionBuilder;
 
 class SectionFormHandler extends AbstractFormHandler
 {
     /** @var SectionManager */
     private $sectionManager;
 
-    /** @var  SectionFieldsBuilder */
+    /** @var  SectionBuilder */
     private $sectionFieldsBuilder;
 
-    public function __construct(SectionManager $sectionManager, SectionFieldsBuilder $sectionFieldsBuilder)
+    public function __construct(SectionManager $sectionManager, SectionBuilder $sectionFieldsBuilder)
     {
         $this->sectionManager = $sectionManager;
         $this->sectionFieldsBuilder = $sectionFieldsBuilder;
