@@ -49,7 +49,6 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
             ->children()
             ->scalarNode('factory')->isRequired()->end()
-            ->scalarNode('admin_template')->isRequired()->end()
             ->arrayNode('views')
             ->children()
             ->scalarNode('create')->end()
