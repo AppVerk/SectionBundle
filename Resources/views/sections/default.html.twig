@@ -1,7 +1,0 @@
-{% if section.translations.containsKey(langCode) == true %}
-    {% if section_with_settings == true %}
-        {% include '@Grid/sections/_default_with_settings.html.twig' %}
-    {% else %}
-        {% include '@Grid/sections/_default_without_settings.html.twig' %}
-    {% endif %}
-{% endif %}

@@ -3,7 +3,6 @@
 namespace AppVerk\SectionBundle\Controller;
 
 use AppVerk\Components\Controller\LanguageAccessControllerInterface;
-use AppVerk\Components\Doctrine\TranslationEntityInterface;
 use AppVerk\SectionBundle\Doctrine\FieldManager;
 use AppVerk\SectionBundle\Entity\Field;
 use AppVerk\SectionBundle\Form\Handler\FieldFormHandler;
@@ -28,24 +27,22 @@ class FieldController extends BaseController implements LanguageAccessController
         Request $request
     ) {
         $returnParameters = ['lang' => $lang];
+        $returnParameters['object'] = $field;
+        $field->setCurrentLocale($lang);
 
         if ($request->getMethod() === 'GET') {
             $form = $fieldFormHandler->buildForm(FieldType::class, $field)->getFormView();
             $returnParameters['form'] = $form;
         } else {
-            if ($request->getMethod() === ' POST') {
-                if ($field instanceof TranslationEntityInterface) {
-                    $field->setCurrentLocale($lang);
-                }
-
-                $fieldFormHandler->buildForm(FieldType::class, $field);
+            if ($request->getMethod() === 'POST') {
+                $form = $fieldFormHandler->buildForm(FieldType::class, $field);
 
                 if (!$fieldFormHandler->process()) {
                     $this->addFlashMessage('danger', $fieldFormHandler->getErrorsAsString());
                 } else {
                     $this->addFlashMessage('success', 'field.edit.successful');
                 }
-                $returnParameters['object'] = $field;
+                $returnParameters['form'] = $form->getFormView();
             }
         }
 
@@ -61,7 +58,7 @@ class FieldController extends BaseController implements LanguageAccessController
         $lang = null,
         FieldManager $fieldManager
     ) {
-        if (!$lang && $this->getUser()->isSuperAdmin()) {
+        if (!$lang) {
             $fieldManager->remove($field);
         }
 
@@ -69,6 +66,6 @@ class FieldController extends BaseController implements LanguageAccessController
             $fieldManager->removeTranslation($field, $lang);
         }
 
-        return $this->render($this->configProvider->getSectionView('remove'), ['lang' => $lang]);
+        return $this->render($this->configProvider->getFieldView('remove', $field->getType()), ['lang' => $lang]);
     }
 }

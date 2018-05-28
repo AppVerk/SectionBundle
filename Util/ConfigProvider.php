@@ -33,18 +33,26 @@ class ConfigProvider
         return $this->container->getParameter("appverk_sections.fields.$type");
     }
 
-    public function getSectionView(string $action): string
+    public function getSectionView(string $action, string $name = null): string
     {
-        $parameter = 'section.actions.'.$action;
+        if ($name !== null) {
+            $parameter = 'sections.'.$name.'.views.'.$action;
 
-        return $this->container->getParameter("appverk_sections.$parameter");
+            return $this->container->getParameter("appverk_sections.$parameter");
+        }
+
+        return '@Section/sections/create.html.twig';
     }
 
     public function getFieldView(string $action, string $fieldType): string
     {
-        $parameter = 'fields.'.$fieldType.'.actions.'.$action;
+        $parameter = 'fields.'.$fieldType.'.views.'.$action;
+        $parameterValue = $this->container->getParameter("appverk_sections.$parameter");
+        if ($parameterValue !== null) {
+            return $parameterValue;
+        }
 
-        return $this->container->getParameter("appverk_sections.$parameter");
+        return '@Section/fields/edit.html.twig';
     }
 
     public function getSectionSettings()
@@ -72,5 +80,17 @@ class ConfigProvider
         }
 
         return [];
+    }
+
+    public function getSectionSetting($type, $setting)
+    {
+        $sections = $this->getSectionSettings();
+        foreach ($sections as $key => $data) {
+            if ($key === $type and array_key_exists($setting, $data)) {
+                return $data[$setting];
+            }
+        }
+
+        return '';
     }
 }
