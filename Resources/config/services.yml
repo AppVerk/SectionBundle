@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    AppVerk\SectionBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests,Doctrine,Twig}'
+
+    AppVerk\SectionBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    AppVerk\SectionBundle\Service\SectionBuilder:
+        public: true
+        arguments:
+            $locale: '%locale%'

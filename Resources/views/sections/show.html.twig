@@ -1,0 +1,46 @@
+{% if section.translations.containsKey(lang) == true %}
+
+    <h4><span class="name">{{ section.translations[lang].title }}</span>
+        <span class="badge badge-default"> default </span>
+    </h4>
+
+    <div>
+        {% if section.fields|length > 0 %}
+            <div class="table-scrollable" style="margin:0 !important;">
+                <table class="table table-hover table-light table-small-font">
+                    <thead>
+                    <tr>
+                        <th class="uppercase" width="4%">Type</th>
+                        <th class="uppercase" width="250">Name</th>
+                        <th class="uppercase">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for field in section.fields %}
+                        {% if section.translations.containsKey(lang) == true %}
+                            {% if field.settings != true %}
+                                <tr>
+                                    <td>{{ field.type }}</td>
+                                    <td><strong>{{ field.translations[lang].title }}</strong>
+                                        <small>[{{ field.name }}]</small>
+                                    </td>
+                                    <td>
+                                        {% if field.type == 'input' %}
+                                            {{ field.translations[lang].text }}
+                                        {% elseif field.type == 'txt' %}
+                                            {{ field.translations[lang].body|length > 160 ? field.translations[lang].body|slice(0, 160) ~ '...' : field.translations[lang].body }}
+                                        {% elseif field.type == 'html' %}
+                                            {{ field.translations[lang].body|striptags|length > 160 ? field.translations[lang].body|striptags|slice(0, 160) ~ '...' : field.translations[lang].body }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+{% endif %}
