@@ -1,4 +1,4 @@
-#AppVerk  SectionBundle
+AppVerk  SectionBundle
 	
 1. Update composer.json file: 
 ```json
@@ -65,12 +65,12 @@ section:
             factory: AppVerk\SectionBundle\Factory\FieldHTMLFactory
             views:
                 edit: '@Section/fields/edit.html.twig'
-                remove:
+                remove: '@Section/fields/remove.html.twig'
         txt:
             factory: AppVerk\SectionBundle\Factory\FieldTXTFactory
             views:
                 edit: '@Section/fields/edit.html.twig'
-                remove:
+                remove: '@Section/fields/remove.html.twig'
         input:
             factory: AppVerk\SectionBundle\Factory\FieldInputFactory
             views:
