@@ -18,6 +18,11 @@ class SectionExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('appverk_sections.options.translatable', $config['options']['translatable']);
+
+        if ($config['options']['translatable'] === true) {
+            $this->checkTranslatableExtensions($container);
+        }
+
         $container->setParameter('appverk_sections.sections', $config['sections']);
         $container->setParameter('appverk_sections.options.languages', $config['options']['languages']);
 
@@ -37,5 +42,16 @@ class SectionExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('doctrine.yml');
+    }
+
+    private function checkTranslatableExtensions(ContainerBuilder $container)
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (!array_key_exists('DoctrineBehaviorsBundle', $bundles)) {
+            throw new \Exception(
+                "KNPDoctrineBehaviorsBundle does not exist! Please install it if You want to use translatable."
+            );
+        }
     }
 }
