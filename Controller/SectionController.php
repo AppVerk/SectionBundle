@@ -9,6 +9,7 @@ use AppVerk\SectionBundle\Form\Handler\SectionFormHandler;
 use AppVerk\SectionBundle\Form\Type\SectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -94,7 +95,8 @@ class SectionController extends BaseController implements LanguageAccessControll
     public function deleteAction(
         Section $section,
         $lang = null,
-        SectionManager $sectionManager
+        SectionManager $sectionManager,
+        Request $request
     ) {
         if (!$lang) {
             $sectionManager->remove($section);
@@ -104,6 +106,7 @@ class SectionController extends BaseController implements LanguageAccessControll
             $sectionManager->removeTranslation($section, $lang);
         }
 
-        return $this->render($this->configProvider->getSectionView('remove', $section->getName()), ['lang' => $lang]);
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
     }
 }

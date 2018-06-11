@@ -5,6 +5,7 @@ namespace AppVerk\SectionBundle\Form\Type;
 use AppVerk\SectionBundle\Entity\Section;
 use AppVerk\SectionBundle\Util\ConfigProvider;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,16 @@ class SectionType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('submit', SubmitType::class);
+            ->add(
+                'template',
+                ChoiceType::class,
+                [
+                    'required'    => true,
+                    'choices'     => $this->configProvider->getTemplates(),
+                ]
+            )
+            ->add('submit', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -37,6 +37,11 @@ abstract class Section implements EntityInterface
     /**
      * @ORM\Column(type="string")
      */
+    private $template;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     protected $type;
 
     /**
@@ -74,7 +79,6 @@ abstract class Section implements EntityInterface
     public function __construct()
     {
         $this->fields = new ArrayCollection();
-        $this->custom = true;
     }
 
     /**
@@ -125,5 +129,21 @@ abstract class Section implements EntityInterface
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
 }
