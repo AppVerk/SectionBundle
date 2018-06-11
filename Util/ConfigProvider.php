@@ -82,6 +82,18 @@ class ConfigProvider
         return [];
     }
 
+    public function getTemplates()
+    {
+        $templateChoices = [];
+        $templates = $this->getSettings('sections');
+
+        foreach ($templates as $key => $template) {
+            $templateChoices[$template['name']] = $template['name'];
+        }
+
+        return $templateChoices;
+    }
+
     public function getSectionSetting($type, $setting)
     {
         $sections = $this->getSectionSettings();

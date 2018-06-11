@@ -21,8 +21,7 @@ class TemplateExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('template', [$this, 'getTemplate']),
             new \Twig_SimpleFunction('field_template', [$this, 'getFieldAdminTemplate']),
-            new \Twig_SimpleFunction('section_template', [$this, 'getSectionAdminTemplate']),
-            new \Twig_SimpleFunction('section_block', [$this, 'getSectionBlock']),
+            new \Twig_SimpleFunction('section_template', [$this, 'getSectionTemplate']),
         ];
     }
 
@@ -36,13 +35,15 @@ class TemplateExtension extends \Twig_Extension
         return $this->configProvider->getFieldAdminTemplate($name);
     }
 
-    public function getSectionAdminTemplate($name)
+    private function getSectionViews($name)
     {
-        return $this->configProvider->getSectionAdminTemplate($name);
+        return $this->configProvider->getSectionSetting($name, 'views');
     }
 
-    public function getSectionBlock($name)
+    public function getSectionTemplate($name, $type)
     {
-        return $this->configProvider->getSectionBlock($name);
+        $views = $this->getSectionViews($name);
+
+        return $views[$type];
     }
 }

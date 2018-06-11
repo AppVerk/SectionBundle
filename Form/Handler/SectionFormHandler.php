@@ -37,6 +37,7 @@ class SectionFormHandler extends AbstractFormHandler
         $currentLocale = $section->getCurrentLocale();
         $requestData = $this->request->request->all();
 
+        $section->setName($this->configProvider->getSectionSetting('simple', 'name'));
         $section->translate($section->getCurrentLocale(), false)->setTitle($requestData['section']['title']);
 
         if ($this->configProvider->isTranslatableEnabled() === true && !$section->getId()) {
@@ -57,7 +58,7 @@ class SectionFormHandler extends AbstractFormHandler
 
         $this->sectionManager->flush();
 
-        return true;
+        return $section;
     }
 
 }
