@@ -75,7 +75,7 @@ class SectionController extends BaseController implements LanguageAccessControll
         $sectionFormHandler->buildForm(SectionDefaultEditFormType::class, $section);
 
         if (!$section = $sectionFormHandler->process()) {
-            return new Response(Response::HTTP_BAD_REQUEST, $sectionFormHandler->getErrorsAsString());
+            return new Response($sectionFormHandler->getErrorsAsString(), Response::HTTP_BAD_REQUEST);
         }
 
         return new JsonResponse([
