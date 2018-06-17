@@ -33,28 +33,6 @@ class ConfigProvider
         return $this->container->getParameter("appverk_sections.fields.$type");
     }
 
-    public function getSectionView(string $action, string $name = null): string
-    {
-        if ($name !== null) {
-            $parameter = 'sections.'.$name.'.views.'.$action;
-
-            return $this->container->getParameter("appverk_sections.$parameter");
-        }
-
-        return '@Section/sections/create.html.twig';
-    }
-
-    public function getFieldView(string $action, string $fieldType): string
-    {
-        $parameter = 'fields.'.$fieldType.'.views.'.$action;
-        $parameterValue = $this->container->getParameter("appverk_sections.$parameter");
-        if ($parameterValue !== null) {
-            return $parameterValue;
-        }
-
-        return '@Section/fields/edit.html.twig';
-    }
-
     public function getSectionSettings()
     {
         return $this->getSettings('sections');
@@ -68,6 +46,12 @@ class ConfigProvider
     public function getLanguages()
     {
         return $this->container->getParameter("appverk_sections.options.languages");
+    }
+
+    public function getFieldExtender($name)
+    {
+        $settings = $this->getSettings('fields.'.$name);
+        return $settings['extender'];
     }
 
     public function getSectionFields($sectionName)

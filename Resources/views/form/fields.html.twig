@@ -1,0 +1,17 @@
+{% block field_widget %}
+    {% set vars = form.vars %}
+    {% set entity = vars.value %}
+    {% set type = entity.getType() %}
+    {% set lang = entity.getCurrentLocale() %}
+
+    {% if type == 'html' %}
+        {% for child in form.children %}
+            <textarea class="form-control m-input redactor" name="{{ child.vars.full_name }}" style="height: 300px">{{ entity.translations[lang].body }}</textarea>
+        {% endfor %}
+    {% endif %}
+    {% if type == 'txt' %}
+        {% for child in form.children %}
+            <textarea class="form-control m-input" name="{{ child.vars.full_name }}" style="height: 200px">{{ entity.translations[lang].body }}</textarea>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

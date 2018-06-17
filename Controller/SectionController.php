@@ -5,12 +5,16 @@ namespace AppVerk\SectionBundle\Controller;
 use AppVerk\Components\Controller\LanguageAccessControllerInterface;
 use AppVerk\SectionBundle\Doctrine\SectionManager;
 use AppVerk\SectionBundle\Entity\Section;
+use AppVerk\SectionBundle\Form\Handler\SectionDefaultEditFormHandler;
 use AppVerk\SectionBundle\Form\Handler\SectionFormHandler;
+use AppVerk\SectionBundle\Form\Type\SectionDefaultEditFormType;
 use AppVerk\SectionBundle\Form\Type\SectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/section")
@@ -56,36 +60,27 @@ class SectionController extends BaseController implements LanguageAccessControll
 
     /**
      * @Route("/edit/{section}/{lang}", name="section_edit")
-     * @Method({"GET", "POST"})
+     * @Method({"POST"})
      */
     public function editSectionAction(
         Section $section,
         $lang,
-        SectionFormHandler $sectionFormHandler,
-        Request $request
+        SectionDefaultEditFormHandler $sectionFormHandler
     ) {
         $returnParameters = ['lang' => $lang];
         $returnParameters['object'] = $section;
+
         $section->setCurrentLocale($lang);
 
-        if ($request->getMethod() === 'GET') {
-            $form = $sectionFormHandler->buildForm(SectionType::class, $section)->getFormView();
-            $returnParameters['form'] = $form;
-        } else {
-            if ($request->getMethod() === 'POST') {
-                $section->setCurrentLocale($lang);
-                $form = $sectionFormHandler->buildForm(SectionType::class, $section);
+        $sectionFormHandler->buildForm(SectionDefaultEditFormType::class, $section);
 
-                if (!$sectionFormHandler->process()) {
-                    $this->addFlashMessage('danger', $sectionFormHandler->getErrorsAsString());
-                } else {
-                    $this->addFlashMessage('success', 'section.edit.successful');
-                }
-                $returnParameters['form'] = $form->getFormView();
-            }
+        if (!$section = $sectionFormHandler->process()) {
+            return new Response(Response::HTTP_BAD_REQUEST, $sectionFormHandler->getErrorsAsString());
         }
 
-        return $this->render($this->configProvider->getSectionView('edit', $section->getName()), $returnParameters);
+        return new JsonResponse([
+            'resource_id' => $section->getId()
+        ]);
     }
 
     /**

@@ -28,15 +28,6 @@ class SectionExtension extends Extension
 
         foreach ($config['fields'] as $field => $parameters) {
             $container->setParameter("appverk_sections.fields.$field", $parameters);
-            foreach ($parameters['views'] as $key => $view) {
-                $container->setParameter("appverk_sections.fields.$field.views.$key", $view);
-            }
-        }
-
-        foreach ($config['sections'] as $sectionKey => $sectionConfig) {
-            foreach ($sectionConfig['views'] as $key => $view) {
-                $container->setParameter("appverk_sections.sections.".$sectionKey.'.views.'.$key, $view);
-            }
         }
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

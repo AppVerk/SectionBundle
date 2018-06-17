@@ -1,9 +1,7 @@
 {% if section.translations.containsKey(lang) == true %}
-
     <h4><span class="name">{{ section.translations[lang].title }}</span>
         <span class="badge badge-default"> default </span>
     </h4>
-
     <div>
         {% if section.fields|length > 0 %}
             <div class="table-scrollable" style="margin:0 !important;">
@@ -42,5 +40,4 @@
             </div>
         {% endif %}
     </div>
-
 {% endif %}
