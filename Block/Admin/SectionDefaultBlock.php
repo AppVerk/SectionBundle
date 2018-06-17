@@ -3,6 +3,8 @@
 namespace AppVerk\SectionBundle\Block\Admin;
 
 use AppVerk\BlockBundle\Block\AbstractBlock;
+use AppVerk\SectionBundle\Entity\Section;
+use AppVerk\SectionBundle\Entity\SectionDefault;
 use AppVerk\SectionBundle\Form\Handler\SectionDefaultEditFormHandler;
 use AppVerk\SectionBundle\Form\Type\SectionDefaultEditFormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,8 +27,11 @@ class SectionDefaultBlock extends AbstractBlock
     public function execute(array $options = [])
     {
         $settings = $this->getSettings($options);
+        /** @var SectionDefault $section */
+        $section = $settings['section'];
+        $section->setCurrentLocale($settings['lang']);
 
-        $from = $this->formHandler->buildForm(SectionDefaultEditFormType::class, $settings['section']);
+        $from = $this->formHandler->buildForm(SectionDefaultEditFormType::class, $section);
 
         return $this->renderResponse(
             $settings['template'],

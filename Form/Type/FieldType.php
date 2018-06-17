@@ -2,6 +2,7 @@
 
 namespace AppVerk\SectionBundle\Form\Type;
 
+use AppVerk\Components\Doctrine\TranslationEntityInterface;
 use AppVerk\SectionBundle\Form\Extender\FieldFormExtenderInterface;
 use AppVerk\SectionBundle\Util\ConfigProvider;
 use Symfony\Component\Form\AbstractType;
@@ -34,6 +35,11 @@ class FieldType extends AbstractType
             function (FormEvent $event) use ($configProvider)  {
                 $object = $event->getData();
                 $form = $event->getForm();
+                $owner = $event->getForm()->getParent()->getData()->getOwner();
+
+                if($owner instanceof TranslationEntityInterface){
+                    $object->setCurrentLocale($owner->getCurrentLocale());
+                }
 
                 $extender = $this->configProvider->getFieldExtender($object->getType());
                 $interfaces = class_implements($extender);
