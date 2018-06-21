@@ -90,6 +90,7 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('blocks')
             ->children()
             ->scalarNode('admin')->end()
+            ->scalarNode('front')->end()
             ->end()
             ->end()
             ->arrayNode('actions')
