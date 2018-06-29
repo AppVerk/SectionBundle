@@ -8,18 +8,30 @@ use AppVerk\SectionBundle\Entity\Section;
 
 class SectionManager extends AbstractManager implements ManagerInterface
 {
-    public function removeTranslation(Section $field, $locale)
+    public function removeTranslation(Section $section, $locale)
     {
-        $translations = $field->getTranslations();
+        $translations = $section->getTranslations();
         foreach ($translations as $translation) {
             if ($translation->getLocale() === $locale) {
                 $this->objectManager->remove($translation);
                 $this->objectManager->flush();
             }
         }
-        $this->objectManager->refresh($field);
-        if ($field->getTranslations()->isEmpty()) {
-            $this->remove($field);
+        $this->objectManager->refresh($section);
+        if ($section->getTranslations()->isEmpty()) {
+            $this->remove($section);
+        }
+
+        return null;
+    }
+
+    public function getTranslation(Section $section, $locale)
+    {
+        $translations = $section->getTranslations();
+        foreach ($translations as $translation) {
+            if ($translation->getLocale() === $locale) {
+                return $translation;
+            }
         }
 
         return null;

@@ -35,14 +35,14 @@ class TemplateExtension extends \Twig_Extension
         return $this->configProvider->getFieldAdminTemplate($name);
     }
 
-    private function getSectionViews($name)
+    private function getSectionBlocks($name)
     {
-        return $this->configProvider->getSectionSetting($name, 'views');
+        return $this->configProvider->getSectionSetting($name, 'blocks');
     }
 
     public function getSectionTemplate($name, $type)
     {
-        $views = $this->getSectionViews($name);
+        $views = $this->getSectionBlocks($name);
 
         return $views[$type];
     }
