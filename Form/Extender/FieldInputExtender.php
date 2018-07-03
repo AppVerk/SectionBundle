@@ -13,7 +13,8 @@ class FieldInputExtender implements FieldFormExtenderInterface
             'text',
             TextType::class,
             [
-                'label' => false,
+                'label'         => false,
+                'property_path' => 'text'
             ]
         );
     }
