@@ -61,6 +61,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder
             ->arrayNode('sections')
+            ->useAttributeAsKey('name', false)
             ->prototype('array')
             ->children()
             ->scalarNode('name')->end()
