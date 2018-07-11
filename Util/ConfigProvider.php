@@ -3,6 +3,7 @@
 namespace AppVerk\SectionBundle\Util;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class ConfigProvider
 {
@@ -87,6 +88,6 @@ class ConfigProvider
             }
         }
 
-        return '';
+        throw new ParameterNotFoundException("Parameter {$type}:{$setting} in section bundle");
     }
 }
