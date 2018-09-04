@@ -5,6 +5,7 @@ namespace AppVerk\SectionBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SectionExtension extends Extension
@@ -33,6 +34,7 @@ class SectionExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('doctrine.yml');
+
     }
 
     private function checkTranslatableExtensions(ContainerBuilder $container)
