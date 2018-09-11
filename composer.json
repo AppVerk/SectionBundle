@@ -25,7 +25,7 @@
   ],
   "require": {
     "php": "^7.0",
-    "app-verk/components": "^1.0",
+    "app-verk/components": "^1.0 || ^2.0",
     "doctrine/doctrine-bundle": "^1.6",
     "doctrine/orm": "^2.5",
     "incenteev/composer-parameter-handler": "^2.0",
